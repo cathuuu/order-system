@@ -3,8 +3,6 @@ package com.example.authentication.services.impl;
 import com.example.authentication.dtos.queris.RefreshTokenDtoQuery;
 import com.example.authentication.entities.RefreshTokenEntity;
 import com.example.authentication.entities.UserEntity;
-import com.example.authentication.mappers.RefreshTokenMapper;
-import com.example.authentication.mappers.UserMapper;
 import com.example.authentication.repository.RefreshTokenRepository;
 import com.example.authentication.services.RefreshTokenService;
 import com.example.authentication.services.UserService;
@@ -18,19 +16,24 @@ import java.util.UUID;
 
 @Service
 public class RefreshTokenServiceImpl extends CommonServiceImpl<RefreshTokenEntity, Long, RefreshTokenRepository> implements RefreshTokenService {
-    private final RefreshTokenMapper refreshTokenMapper;
 
-    public RefreshTokenServiceImpl(RefreshTokenRepository repo, UserService userService, UserMapper userMapper, RefreshTokenMapper refreshTokenMapper) {
+    public RefreshTokenServiceImpl(RefreshTokenRepository repo, UserService userService) {
         super(repo);
-        this.refreshTokenMapper = refreshTokenMapper;
     }
 
     @Override
     public RefreshTokenEntity createToken(UserEntity user, Instant expiration) {
-        RefreshTokenEntity newToken = refreshTokenMapper.toEntity(user, expiration);
-        return repo.save(newToken);
-    }
+        RefreshTokenEntity tokenEntity = new RefreshTokenEntity();
 
+        // Set các trường thủ công
+        tokenEntity.setUserId(user);           // liên kết user
+        tokenEntity.setToken(UUID.randomUUID().toString());  // token random
+        tokenEntity.setExpiryDate(expiration);        // thời hạn
+        tokenEntity.setCreatedAt(Instant.now());      // thời gian tạo
+
+        // Lưu vào DB
+        return repo.save(tokenEntity);
+    }
 
     @Override
     public Optional<RefreshTokenEntity> findByToken(String token) {

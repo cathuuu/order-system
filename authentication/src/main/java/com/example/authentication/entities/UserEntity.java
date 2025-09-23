@@ -2,10 +2,7 @@ package com.example.authentication.entities;
 
 import com.example.authentication.Role.RoleEnum;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
@@ -14,6 +11,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Setter
+@Getter
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +30,5 @@ public class UserEntity {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     RoleEnum role;
+
 }

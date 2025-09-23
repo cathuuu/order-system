@@ -1,6 +1,7 @@
 package com.example.authentication.controllers;
 
 
+import com.example.authentication.dtos.RequestDto;
 import com.example.authentication.dtos.ResponseDto;
 import com.example.authentication.dtos.RegisterRequestDto;
 import com.example.authentication.entities.RefreshTokenEntity;
@@ -22,28 +23,32 @@ import java.util.Collections;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    private  UserService userService;
+    private final UserService userService;
 
-    private  AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    private UserMapper registerMapper;
+    private final UserMapper registerMapper;
 
-    private JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    private RefreshTokenService refreshTokenService;
+    private final RefreshTokenService refreshTokenService;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, AuthenticationManager authenticationManager, UserMapper registerMapper, JwtTokenProvider jwtTokenProvider, RefreshTokenService refreshTokenService) {
         this.userService = userService;
+        this.authenticationManager = authenticationManager;
+        this.registerMapper = registerMapper;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.refreshTokenService = refreshTokenService;
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequestDto requestDto) {
-        var result = userService.save(registerMapper.toEntity(requestDto));
+        var result = userService.create(registerMapper.toEntity(requestDto));
         return ResponseEntity.ok("User registered successfully with id: " + result.getId());
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto> login(@RequestBody ResponseDto loginRequestDto) {
+    public ResponseEntity<ResponseDto> login(@RequestBody RequestDto loginRequestDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequestDto.getUsername(),
@@ -53,11 +58,9 @@ public class AuthController {
 
         String accessToken = jwtTokenProvider.generateAccessToken(authentication);
 
-        // Lấy user entity từ DB
         UserEntity user = userService.findByUsername(loginRequestDto.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Tạo refresh token cho user
         RefreshTokenEntity refreshToken = refreshTokenService.createToken(
                 user,
                 Instant.now().plus(7, ChronoUnit.DAYS)

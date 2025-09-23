@@ -26,7 +26,7 @@ public class RefreshTokenEntity {
     String token;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", nullable = false)
     UserEntity userId;
 
     @Column(nullable = false)
@@ -35,4 +35,8 @@ public class RefreshTokenEntity {
     @CreatedDate
     @Column(updatable = false)
     Instant createdAt;
+
+//    public void setUserId(UserEntity id) {
+//        this.userId = id;
+//    }
 }

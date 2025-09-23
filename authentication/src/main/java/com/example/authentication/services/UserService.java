@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService extends CommonService<UserEntity, Long> {
+    UserEntity create (UserEntity user);
 
     Optional<UserEntity> findByUsername(String username);
 
