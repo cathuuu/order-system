@@ -1,5 +1,6 @@
 package com.example.authentication.entities;
 
+import com.example.authentication.Role.RoleEnum;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,5 +30,5 @@ public class UserEntity {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    Enum role;
+    RoleEnum role;
 }

@@ -27,12 +27,12 @@ public class RefreshTokenEntity {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    UserEntity user;
+    UserEntity userId;
 
     @Column(nullable = false)
     Instant expiryDate;
 
     @CreatedDate
     @Column(updatable = false)
-    private Instant createdAt;
+    Instant createdAt;
 }
