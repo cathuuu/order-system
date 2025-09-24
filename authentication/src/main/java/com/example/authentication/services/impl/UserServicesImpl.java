@@ -1,6 +1,6 @@
 package com.example.authentication.services.impl;
 
-import com.example.authentication.Role.RoleEnum;
+import com.example.authentication.enums.RoleEnum;
 import com.example.authentication.dtos.queris.UserDtoQuery;
 import com.example.authentication.entities.UserEntity;
 import com.example.authentication.repository.UserRepository;

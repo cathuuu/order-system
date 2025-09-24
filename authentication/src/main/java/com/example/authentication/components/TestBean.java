@@ -1,4 +1,4 @@
-package com.example.authentication.compnents;
+package com.example.authentication.components;
 
 import com.example.authentication.mappers.UserMapper;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.example.authentication.Role;
+package com.example.authentication.enums;
 
 public enum RoleEnum {
     ADMIN,

@@ -35,8 +35,4 @@ public class RefreshTokenEntity {
     @CreatedDate
     @Column(updatable = false)
     Instant createdAt;
-
-//    public void setUserId(UserEntity id) {
-//        this.userId = id;
-//    }
 }

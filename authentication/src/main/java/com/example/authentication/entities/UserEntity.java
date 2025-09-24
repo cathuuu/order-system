@@ -1,6 +1,6 @@
 package com.example.authentication.entities;
 
-import com.example.authentication.Role.RoleEnum;
+import com.example.authentication.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

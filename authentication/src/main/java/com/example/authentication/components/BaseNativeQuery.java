@@ -1,4 +1,4 @@
-package com.example.authentication.compnents;
+package com.example.authentication.components;
 
 import com.example.authentication.exceptions.AppException;
 import org.springframework.beans.factory.annotation.Autowired;

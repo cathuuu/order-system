@@ -1,6 +1,6 @@
 package com.example.authentication.repository.impl;
 
-import com.example.authentication.compnents.BaseNativeQuery;
+import com.example.authentication.components.BaseNativeQuery;
 import com.example.authentication.dtos.queris.ConditionDto;
 import com.example.authentication.dtos.queris.RefreshTokenDtoQuery;
 import com.example.authentication.entities.RefreshTokenEntity;

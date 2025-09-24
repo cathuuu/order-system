@@ -1,10 +1,8 @@
 package com.example.authentication.repository.impl;
 
-import com.example.authentication.compnents.BaseNativeQuery;
+import com.example.authentication.components.BaseNativeQuery;
 import com.example.authentication.dtos.queris.ConditionDto;
-import com.example.authentication.dtos.queris.RefreshTokenDtoQuery;
 import com.example.authentication.dtos.queris.UserDtoQuery;
-import com.example.authentication.entities.RefreshTokenEntity;
 import com.example.authentication.entities.UserEntity;
 import com.example.authentication.repository.UserRepositoryCustom;
 import io.micrometer.common.util.StringUtils;
@@ -14,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
