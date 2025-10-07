@@ -10,13 +10,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
+
 
     @PostMapping("/create")
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity) {
@@ -30,6 +33,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping()
     public ResponseEntity<Page<UserEntity>> getUsers(
             @RequestParam(required = false) UserDtoQuery dtoQuery,
@@ -44,12 +48,11 @@ public class UserController {
         Page<UserEntity> usersPage = userService.findAllUsers(dtoQuery, pageable);
         return ResponseEntity.ok(usersPage);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping()
     public ResponseEntity<UserEntity> deleteUser(@RequestParam Long id) {
         userService.deleteById(id);
-        ResponseEntity<UserEntity> responseEntity = ResponseEntity.ok().build();
-        return responseEntity;
+        return ResponseEntity.ok().build();
     }
 }
 

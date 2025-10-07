@@ -21,7 +21,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     private final UserService userService;
 
